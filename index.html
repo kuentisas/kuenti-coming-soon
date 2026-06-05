@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuenti · Contabilidad Inteligente</title>
+<meta name="description" content="Firma contable digital. Próximamente en kuenti.co">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --slate:    #545C7E;
+    --slated:   #3D4566;
+    --slatelt:  #E8EAF2;
+    --gold:     #F0A030;
+    --goldlt:   #FDF3E3;
+    --white:    #FFFFFF;
+    --offwhite: #F7F8FC;
+    --text:     #2C3154;
+    --muted:    #8B93B0;
+    --border:   #E2E5F0;
+  }
+
+  html, body { height: 100%; background: var(--offwhite); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* subtle dot pattern */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(circle, rgba(84,92,126,0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrapper {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  /* ── Logo SVG ── */
+  .logo-wrap {
+    margin-bottom: 3rem;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .logo-svg { width: 200px; height: auto; object-fit: contain; }
+
+  /* ── Badge ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--goldlt);
+    border: 1px solid rgba(240,160,48,0.3);
+    color: var(--gold);
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 7px 18px; border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeDown 0.8s 0.1s ease both;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.65)} }
+
+  /* ── Headline ── */
+  h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 4.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--slated);
+    margin-bottom: 0.2rem;
+    animation: fadeDown 0.8s 0.15s ease both;
+  }
+
+  h1 strong {
+    font-weight: 600;
+    color: var(--slate);
+  }
+
+  h1 .plus {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    display: flex; align-items: center; gap: 16px;
+    margin: 2rem auto;
+    width: fit-content;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .divider::before, .divider::after {
+    content: ''; display: block;
+    width: 48px; height: 1px;
+    background: var(--border);
+  }
+  .divider-plus {
+    color: var(--gold); font-size: 1.1rem; font-weight: 600;
+    font-family: 'Sora', sans-serif;
+  }
+
+  /* ── Subtitle ── */
+  .subtitle {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    font-weight: 300; color: var(--muted);
+    max-width: 460px; line-height: 1.8;
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  /* ── Services pills ── */
+  .services {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .service {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.78rem; font-weight: 400; color: var(--slate);
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(84,92,126,0.06);
+  }
+
+  .service-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0;
+  }
+
+  /* ── Decorative card ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 4px 24px rgba(84,92,126,0.08);
+    animation: fadeUp 0.8s 0.5s ease both;
+    margin-bottom: 3rem;
+  }
+
+  .card-icon {
+    width: 48px; height: 48px;
+    background: var(--slatelt);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+  }
+
+  .card-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem; font-weight: 600;
+    color: var(--slated); margin-bottom: 0.5rem;
+  }
+
+  .card-text {
+    font-size: 0.88rem; color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── Footer ── */
+  footer {
+    font-size: 0.72rem; color: var(--muted);
+    letter-spacing: 0.08em;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  footer span { color: var(--gold); }
+
+  /* ── Corner accents ── */
+  .corner { position: fixed; width: 48px; height: 48px; z-index: 1; }
+  .corner.tl { top: 1.5rem; left: 1.5rem; border-top: 2px solid var(--slatelt); border-left: 2px solid var(--slatelt); }
+  .corner.br { bottom: 1.5rem; right: 1.5rem; border-bottom: 2px solid var(--slatelt); border-right: 2px solid var(--slatelt); }
+
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:translateY(0)} }
+
+  @media (max-width: 480px) {
+    .corner { display: none; }
+    .card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="corner tl"></div>
+<div class="corner br"></div>
+
+<div class="wrapper">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <img src="./Kuenti-logo.JPG" alt="Kuenti" class="logo-svg">
+  </div>
+
+  <!-- Badge -->
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Próximamente
+  </div>
+
+  <!-- Headline -->
+  <h1>
+    Contabilidad<br>
+    <strong>inteligente <span class="plus">+</span></strong>
+  </h1>
+
+  <!-- Divider -->
+  <div class="divider">
+    <span class="divider-plus">+</span>
+  </div>
+
+  <!-- Subtitle -->
+  <p class="subtitle">
+    Estamos construyendo algo diferente para la contabilidad en Colombia — más inteligente, más simple, pensado para tu empresa.
+  </p>
+
+  <!-- Services -->
+  <div class="services">
+    <span class="service"><span class="service-dot"></span>Declaraciones DIAN</span>
+    <span class="service"><span class="service-dot"></span>Nómina</span>
+    <span class="service"><span class="service-dot"></span>Revisoría fiscal</span>
+    <span class="service"><span class="service-dot"></span>Contabilidad</span>
+    <span class="service"><span class="service-dot"></span>Asesoría tributaria</span>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div class="card-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#545C7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <p class="card-title">Estamos trabajando en esto</p>
+    <p class="card-text">
+      Nuestra plataforma digital estará disponible muy pronto.<br>
+      Gracias por tu paciencia.
+    </p>
+  </div>
+
+  <footer>© 2026 <span>Kuenti</span> · Colombia · kuenti.co</footer>
+
+</div>
+
+</body>
+</html>
